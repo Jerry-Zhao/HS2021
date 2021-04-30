@@ -1,0 +1,377 @@
+## Developmental expression profiles 
+fpkm <- read.table("../Jerry_02282021_Merged_ExonicGene_FPKM.xls",row.names=1,header=T,sep="\t")
+fpkm[1:5,165:166] # WoldLab_E10.5_Forebrain_totalRNA_rep1/2
+fpkm[1:5,59:60] ## GreerLab_3d_Cortex_totalRNA_rep1/2
+
+ext1 <- fpkm["ENSMUSG00000061731",c(165:180,59:88)]
+ext1
+names(ext1) <- NULL
+data_ext1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(ext1)))
+data_ext1
+
+ext2 <- fpkm["ENSMUSG00000027198",c(165:180,59:88)]
+ext2
+names(ext2) <- NULL
+data_ext2 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(ext2)))
+data_ext2
+
+ndst1 <- fpkm["ENSMUSG00000054008",c(165:180,59:88)]
+ndst1
+names(ndst1) <- NULL
+data_ndst1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(ndst1)))
+data_ndst1
+
+ndst2 <- fpkm["ENSMUSG00000039308",c(165:180,59:88)]
+ndst2
+names(ndst2) <- NULL
+data_ndst2 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(ndst2)))
+data_ndst2
+
+ndst3 <- fpkm["ENSMUSG00000027977",c(165:180,59:88)]
+ndst3
+names(ndst3) <- NULL
+data_ndst3 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(ndst3)))
+data_ndst3
+
+ndst4 <- fpkm["ENSMUSG00000027971",c(165:180,59:88)]
+ndst4
+names(ndst4) <- NULL
+data_ndst4 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(ndst4)))
+data_ndst4
+
+hs2st1 <- fpkm["ENSMUSG00000040151",c(165:180,59:88)]
+hs2st1
+names(hs2st1) <- NULL
+data_hs2st1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs2st1)))
+data_hs2st1
+
+hs6st1 <- fpkm["ENSMUSG00000045216",c(165:180,59:88)]
+hs6st1           
+names(hs6st1) <- NULL
+data_hs6st1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs6st1)))
+data_hs6st1
+
+hs6st2 <- fpkm["ENSMUSG00000062184",c(165:180,59:88)]
+hs6st2
+names(hs6st2) <- NULL
+data_hs6st2 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs6st2)))
+data_hs6st2
+
+hs6st3 <- fpkm["ENSMUSG00000053465",c(165:180,59:88)]
+hs6st3
+names(hs6st3) <- NULL
+data_hs6st3 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs6st3)))
+data_hs6st3
+
+
+png("Plot/Final_boxplot_development_Ext_Ndst_Hs2st_Hs6st.png",width = 600, height = 1800)
+par(mar=c(6,6,4,4))
+layout(matrix(1:10, ncol = 1), heights = c(1.25,1,1,1,1,1,1,1,1,1.25), respect = FALSE)
+
+par(mar = c(0, 5, 4.1, 2.1))
+boxplot(data_ext1$FPKM~factor(data_ext1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,15),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_ext2$FPKM~factor(data_ext2$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,30),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_ndst1$FPKM~factor(data_ndst1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,45),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_ndst2$FPKM~factor(data_ndst2$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,15),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_ndst3$FPKM~factor(data_ndst3$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,15),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_ndst4$FPKM~factor(data_ndst4$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,20),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs2st1$FPKM~factor(data_hs2st1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,20),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs6st1$FPKM~factor(data_hs6st1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,20),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs6st2$FPKM~factor(data_hs6st2$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,40),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(4.1, 5, 0, 2.1))
+boxplot(data_hs6st3$FPKM~factor(data_hs6st3$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,30),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+fpkm <- read.table("../Jerry_02282021_Merged_ExonicGene_FPKM.xls",row.names=1,header=T,sep="\t")
+fpkm[1:5,1:10]
+fpkm[1:5,89:90] ## GingerasLab_8w_Adrenal_gland_rep1/2
+fpkm[1:5,133:134] ## RenLab_8w_Bone_marrow_rep1/2
+
+glce <- fpkm["ENSMUSG00000032252",c(165:180,59:88)]
+glce
+names(glce) <- NULL
+data_glce <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(glce)))
+data_glce
+
+hs3st1 <- fpkm["ENSMUSG00000051022",c(165:180,59:88)]
+hs3st1
+names(hs3st1) <- NULL
+data_hs3st1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs3st1)))
+data_hs3st1
+
+hs3st2 <- fpkm["ENSMUSG00000046321",c(165:180,59:88)]
+hs3st2
+names(hs3st2) <- NULL
+data_hs3st2 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs3st2)))
+data_hs3st2
+
+hs3st3a1 <- fpkm["ENSMUSG00000047759",c(165:180,59:88)]
+hs3st3a1
+names(hs3st3a1) <- NULL
+data_hs3st3a1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs3st3a1)))
+data_hs3st3a1
+
+hs3st3b1 <- fpkm["ENSMUSG00000070407",c(165:180,59:88)]
+hs3st3b1
+names(hs3st3b1) <- NULL
+data_hs3st3b1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs3st3b1)))
+data_hs3st3b1
+
+hs3st4 <- fpkm["ENSMUSG00000078591",c(165:180,59:88)]
+hs3st4
+names(hs3st4) <- NULL
+data_hs3st4 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs3st4)))
+data_hs3st4
+
+hs3st5 <- fpkm["ENSMUSG00000044499",c(165:180,59:88)]
+hs3st5
+names(hs3st5) <- NULL
+data_hs3st5 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs3st5)))
+data_hs3st5
+
+hs3st6 <- fpkm["ENSMUSG00000039628",c(165:180,59:88)]
+hs3st6
+names(hs3st6) <- NULL
+data_hs3st6 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(hs3st6)))
+data_hs3st6
+
+sulf1 <- fpkm["ENSMUSG00000016918",c(165:180,59:88)]
+sulf1
+names(sulf1) <- NULL
+data_sulf1 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(sulf1)))
+data_sulf1
+
+sulf2 <- fpkm["ENSMUSG00000006800",c(165:180,59:88)]
+sulf2
+names(sulf2) <- NULL
+data_sulf2 <- data.frame(Tissue=c(
+                   "E10.5","E10.5","E11.5","E11.5","E12.5","E12.5","E13.5","E13.5","E14.5","E14.5",
+                   "E15.5","E15.5","E16.5","E16.5","P0","P0","P3","P3","P3","2w","2w","2w","2wH","2wH","2wH",
+                   "4w","4w","4w","8w","8w","8w","16w","16w","16w","32w","32w","32w","40w","40w","40w",
+                   "48w","48w","48w","52w","52w","52w"),
+                   FPKM=unlist(c(sulf2)))
+data_sulf2
+
+
+png("Plot/Final_boxplot_development_Glce_Hs3st_Sulf.png",width = 600, height = 1800)
+par(mar=c(6,6,4,4))
+layout(matrix(1:10, ncol = 1), heights = c(1.25,1,1,1,1,1,1,1,1,1.25), respect = FALSE)
+
+par(mar = c(0, 5, 4.1, 2.1))
+boxplot(data_glce$FPKM~factor(data_glce$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,25),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs3st1$FPKM~factor(data_hs3st1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,25),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs3st2$FPKM~factor(data_hs3st2$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,20),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs3st3a1$FPKM~factor(data_hs3st3a1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,10),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs3st3b1$FPKM~factor(data_hs3st3b1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,10),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs3st4$FPKM~factor(data_hs3st4$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,40),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs3st5$FPKM~factor(data_hs3st5$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,10),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_hs3st6$FPKM~factor(data_hs3st6$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,10),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(0, 5, 0, 2.1))
+boxplot(data_sulf1$FPKM~factor(data_sulf1$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,20),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+par(mar = c(4.1, 5, 0, 2.1))
+boxplot(data_sulf2$FPKM~factor(data_sulf2$Tissue,levels=c("E10.5","E11.5","E12.5","E13.5","E14.5",
+    "E15.5","E16.5","P0","P3","2w","4w","8w","16w","32w","40w","48w","52w")),
+    col=rgb(0,170,160,max=255),ylim=c(0,45),ylab="FPKM",xaxt="n")
+axis(1,at=1:17, labels = FALSE)
+
+dev.off()
+
+
+

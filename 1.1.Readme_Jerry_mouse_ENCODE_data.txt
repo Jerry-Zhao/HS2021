@@ -1,0 +1,463 @@
+
+1. mRNA-seq (8 weeks) GSE49417 
+@Gingeras lab (mouse, 8 weeks), polyA RNA-seq
+# GSE90206 frontal cortex 
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Frontal_Cortex_mRNA_rep1 SRR5048039
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Frontal_Cortex_mRNA_rep2 SRR5048040
+
+#GSE90205 Cortex (cortical plate)
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Cortex_mRNA_rep1 SRR5048041
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Cortex_mRNA_rep2 SRR5048042
+
+#GSE90200 cerebellum
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Cerebellum_mRNA_rep1 SRR5048025
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Cerebellum_mRNA_rep2 SRR5048026
+
+#GSE90204 urinary bladder
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Urinary_Bladder_mRNA_rep1 SRR5048035
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Urinary_Bladder_mRNA_rep2 SRR5048036
+
+#GSE90203 placenta
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Placenta_mRNA_rep1 SRR5048033
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Placenta_mRNA_rep2 SRR5048034
+
+#GSE90193 subcutaneous adipose tissue
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_p1 SRR5048011
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_p2 SRR5048012
+cat GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_p1_1.fastq GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_p2_1.fastq 
+    >GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_p1_2.fastq GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_p2_2.fastq
+    >GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_p1 SRR5048013
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_p2 SRR5048014
+cat GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_p1_1.fastq GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_p2_1.fastq
+    >GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_p1_2.fastq GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_p2_2.fastq
+    >GingerasLab_8w_Subcutaneous_Adipose_mRNA_rep2_2.fastq
+
+#GSE90192 stomach
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Stomach_mRNA_rep1_p1 SRR5047995
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Stomach_mRNA_rep1_p2 SRR5047996
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Stomach_mRNA_rep1_p3 SRR5047997
+cat GingerasLab_8w_Stomach_mRNA_rep1_p1_1.fastq GingerasLab_8w_Stomach_mRNA_rep1_p2_1.fastq 
+    GingerasLab_8w_Stomach_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Stomach_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Stomach_mRNA_rep1_p1_2.fastq GingerasLab_8w_Stomach_mRNA_rep1_p2_2.fastq 
+    GingerasLab_8w_Stomach_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Stomach_mRNA_rep1_2.fastq 
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Stomach_mRNA_rep2_p1 SRR5047998
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Stomach_mRNA_rep2_p2 SRR5047999
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Stomach_mRNA_rep2_p3 SRR5048000
+cat GingerasLab_8w_Stomach_mRNA_rep2_p1_1.fastq GingerasLab_8w_Stomach_mRNA_rep2_p2_1.fastq 
+    GingerasLab_8w_Stomach_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Stomach_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Stomach_mRNA_rep2_p1_2.fastq GingerasLab_8w_Stomach_mRNA_rep2_p2_2.fastq 
+    GingerasLab_8w_Stomach_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Stomach_mRNA_rep2_2.fastq
+
+#GSE90191 small intestine
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep1_p1 SRR5048001
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep1_p2 SRR5048002
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep1_p3 SRR5048003
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep1_p4 SRR5048004
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep1_p5 SRR5048005
+cat GingerasLab_8w_Small_intestine_mRNA_rep1_p1_1.fastq GingerasLab_8w_Small_intestine_mRNA_rep1_p2_1.fastq 
+    GingerasLab_8w_Small_intestine_mRNA_rep1_p3_1.fastq GingerasLab_8w_Small_intestine_mRNA_rep1_p4_1.fastq
+    GingerasLab_8w_Small_intestine_mRNA_rep1_p5_1.fastq >GingerasLab_8w_Small_intestine_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Small_intestine_mRNA_rep1_p1_2.fastq GingerasLab_8w_Small_intestine_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Small_intestine_mRNA_rep1_p3_2.fastq GingerasLab_8w_Small_intestine_mRNA_rep1_p4_2.fastq
+    GingerasLab_8w_Small_intestine_mRNA_rep1_p5_2.fastq >GingerasLab_8w_Small_intestine_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep2_p1 SRR5048006
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep2_p2 SRR5048007
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep2_p3 SRR5048008
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep2_p4 SRR5048009
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Small_intestine_mRNA_rep2_p5 SRR5048010
+cat GingerasLab_8w_Small_intestine_mRNA_rep2_p1_1.fastq GingerasLab_8w_Small_intestine_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Small_intestine_mRNA_rep2_p3_1.fastq GingerasLab_8w_Small_intestine_mRNA_rep2_p4_1.fastq
+    GingerasLab_8w_Small_intestine_mRNA_rep2_p5_1.fastq >GingerasLab_8w_Small_intestine_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Small_intestine_mRNA_rep2_p1_2.fastq GingerasLab_8w_Small_intestine_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Small_intestine_mRNA_rep2_p3_2.fastq GingerasLab_8w_Small_intestine_mRNA_rep2_p4_2.fastq
+    GingerasLab_8w_Small_intestine_mRNA_rep2_p5_2.fastq >GingerasLab_8w_Small_intestine_mRNA_rep2_2.fastq
+
+#GSE90190 ovary
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep1_p1 SRR5047985
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep1_p2 SRR5047986
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep1_p3 SRR5047987
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep1_p4 SRR5047988
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep1_p5 SRR5047989
+cat GingerasLab_8w_Ovary_mRNA_rep1_p1_1.fastq GingerasLab_8w_Ovary_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Ovary_mRNA_rep1_p3_1.fastq GingerasLab_8w_Ovary_mRNA_rep1_p4_1.fastq
+    GingerasLab_8w_Ovary_mRNA_rep1_p5_1.fastq >GingerasLab_8w_Ovary_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Ovary_mRNA_rep1_p1_2.fastq GingerasLab_8w_Ovary_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Ovary_mRNA_rep1_p3_2.fastq GingerasLab_8w_Ovary_mRNA_rep1_p4_2.fastq
+    GingerasLab_8w_Ovary_mRNA_rep1_p5_2.fastq >GingerasLab_8w_Ovary_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep2_p1 SRR5047990
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep2_p2 SRR5047991
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep2_p3 SRR5047992
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep2_p4 SRR5047993
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Ovary_mRNA_rep2_p5 SRR5047994
+cat GingerasLab_8w_Ovary_mRNA_rep2_p1_1.fastq GingerasLab_8w_Ovary_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Ovary_mRNA_rep2_p3_1.fastq GingerasLab_8w_Ovary_mRNA_rep2_p4_1.fastq
+    GingerasLab_8w_Ovary_mRNA_rep2_p5_1.fastq >GingerasLab_8w_Ovary_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Ovary_mRNA_rep2_p1_2.fastq GingerasLab_8w_Ovary_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Ovary_mRNA_rep2_p3_2.fastq GingerasLab_8w_Ovary_mRNA_rep2_p4_2.fastq
+    GingerasLab_8w_Ovary_mRNA_rep2_p5_2.fastq >GingerasLab_8w_Ovary_mRNA_rep2_2.fastq
+
+#GSE90189 mammary gland
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Mammary_gland_mRNA_rep1_p1 SRR5047979
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Mammary_gland_mRNA_rep1_p2 SRR5047980
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Mammary_gland_mRNA_rep1_p3 SRR5047981
+cat GingerasLab_8w_Mammary_gland_mRNA_rep1_p1_1.fastq GingerasLab_8w_Mammary_gland_mRNA_rep1_p2_1.fastq 
+    GingerasLab_8w_Mammary_gland_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Mammary_gland_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Mammary_gland_mRNA_rep1_p1_2.fastq GingerasLab_8w_Mammary_gland_mRNA_rep1_p2_2.fastq 
+    GingerasLab_8w_Mammary_gland_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Mammary_gland_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Mammary_gland_mRNA_rep2_p1 SRR5047982
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Mammary_gland_mRNA_rep2_p2 SRR5047983
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Mammary_gland_mRNA_rep2_p3 SRR5047984
+cat GingerasLab_8w_Mammary_gland_mRNA_rep2_p1_1.fastq GingerasLab_8w_Mammary_gland_mRNA_rep2_p2_1.fastq 
+    GingerasLab_8w_Mammary_gland_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Mammary_gland_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Mammary_gland_mRNA_rep2_p1_2.fastq GingerasLab_8w_Mammary_gland_mRNA_rep2_p2_2.fastq 
+    GingerasLab_8w_Mammary_gland_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Mammary_gland_mRNA_rep2_2.fastq
+
+#GSE90188 large intestine
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Large_intestine_mRNA_rep1_p1 SRR5047975
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Large_intestine_mRNA_rep1_p2 SRR5047976
+cat GingerasLab_8w_Large_intestine_mRNA_rep1_p1_1.fastq GingerasLab_8w_Large_intestine_mRNA_rep1_p2_1.fastq
+   >GingerasLab_8w_Large_intestine_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Large_intestine_mRNA_rep1_p1_2.fastq GingerasLab_8w_Large_intestine_mRNA_rep1_p2_2.fastq
+   >GingerasLab_8w_Large_intestine_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Large_intestine_mRNA_rep2_p1 SRR5047977
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Large_intestine_mRNA_rep2_p2 SRR5047978
+cat GingerasLab_8w_Large_intestine_mRNA_rep2_p1_1.fastq GingerasLab_8w_Large_intestine_mRNA_rep2_p2_1.fastq
+   >GingerasLab_8w_Large_intestine_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Large_intestine_mRNA_rep2_p1_2.fastq GingerasLab_8w_Large_intestine_mRNA_rep2_p2_2.fastq
+   >GingerasLab_8w_Large_intestine_mRNA_rep2_2.fastq
+
+#GSE90179 kidney
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Kidney_mRNA_rep1_p1 SRR5047925
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Kidney_mRNA_rep1_p2 SRR5047926
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Kidney_mRNA_rep1_p3 SRR5047927
+cat GingerasLab_8w_Kidney_mRNA_rep1_p1_1.fastq GingerasLab_8w_Kidney_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Kidney_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Kidney_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Kidney_mRNA_rep1_p1_2.fastq GingerasLab_8w_Kidney_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Kidney_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Kidney_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Kidney_mRNA_rep2_p1 SRR5047928
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Kidney_mRNA_rep2_p2 SRR5047929
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Kidney_mRNA_rep2_p3 SRR5047930
+cat GingerasLab_8w_Kidney_mRNA_rep2_p1_1.fastq GingerasLab_8w_Kidney_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Kidney_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Kidney_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Kidney_mRNA_rep2_p1_2.fastq GingerasLab_8w_Kidney_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Kidney_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Kidney_mRNA_rep2_2.fastq
+
+#GSE90180 liver
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Liver_mRNA_rep1_p1 SRR5047931
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Liver_mRNA_rep1_p2 SRR5047932
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Liver_mRNA_rep1_p3 SRR5047933
+cat GingerasLab_8w_Liver_mRNA_rep1_p1_1.fastq GingerasLab_8w_Liver_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Liver_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Liver_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Liver_mRNA_rep1_p1_2.fastq GingerasLab_8w_Liver_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Liver_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Liver_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Liver_mRNA_rep2_p1 SRR5047934
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Liver_mRNA_rep2_p2 SRR5047935
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Liver_mRNA_rep2_p3 SRR5047936
+cat GingerasLab_8w_Liver_mRNA_rep2_p1_1.fastq GingerasLab_8w_Liver_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Liver_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Liver_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Liver_mRNA_rep2_p1_2.fastq GingerasLab_8w_Liver_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Liver_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Liver_mRNA_rep2_2.fastq
+
+
+#GSE90177 colon
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Colon_mRNA_rep1_p1 SRR5047913
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Colon_mRNA_rep1_p2 SRR5047914
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Colon_mRNA_rep1_p3 SRR5047915
+cat GingerasLab_8w_Colon_mRNA_rep1_p1_1.fastq GingerasLab_8w_Colon_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Colon_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Colon_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Colon_mRNA_rep1_p1_2.fastq GingerasLab_8w_Colon_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Colon_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Colon_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Colon_mRNA_rep2_p1 SRR5047916
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Colon_mRNA_rep2_p2 SRR5047917
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Colon_mRNA_rep2_p3 SRR5047918
+cat GingerasLab_8w_Colon_mRNA_rep2_p1_1.fastq GingerasLab_8w_Colon_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Colon_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Colon_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Colon_mRNA_rep2_p1_2.fastq GingerasLab_8w_Colon_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Colon_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Colon_mRNA_rep2_2.fastq
+
+#GSE90178 heart
+SRR5047921/2
+SRR5047923/4
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Heart_mRNA_rep1_p1 SRR5047921
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Heart_mRNA_rep1_p2 SRR5047922
+cat GingerasLab_8w_Heart_mRNA_rep1_p1_1.fastq GingerasLab_8w_Heart_mRNA_rep1_p2_1.fastq
+   >GingerasLab_8w_Heart_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Heart_mRNA_rep1_p1_2.fastq GingerasLab_8w_Heart_mRNA_rep1_p2_2.fastq
+   >GingerasLab_8w_Heart_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Heart_mRNA_rep2_p1 SRR5047923
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Heart_mRNA_rep2_p2 SRR5047924
+cat GingerasLab_8w_Heart_mRNA_rep2_p1_1.fastq GingerasLab_8w_Heart_mRNA_rep2_p2_1.fastq
+   >GingerasLab_8w_Heart_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Heart_mRNA_rep2_p1_2.fastq GingerasLab_8w_Heart_mRNA_rep2_p2_2.fastq
+   >GingerasLab_8w_Heart_mRNA_rep2_2.fastq
+
+#GSE90183 thymus
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Thymus_mRNA_rep1_p1 SRR5047947
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Thymus_mRNA_rep1_p2 SRR5047948
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Thymus_mRNA_rep1_p3 SRR5047949
+cat GingerasLab_8w_Thymus_mRNA_rep1_p1_1.fastq GingerasLab_8w_Thymus_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Thymus_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Thymus_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Thymus_mRNA_rep1_p1_2.fastq GingerasLab_8w_Thymus_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Thymus_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Thymus_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Thymus_mRNA_rep2_p1 SRR5047950
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Thymus_mRNA_rep2_p2 SRR5047951
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Thymus_mRNA_rep2_p3 SRR5047952
+cat GingerasLab_8w_Thymus_mRNA_rep2_p1_1.fastq GingerasLab_8w_Thymus_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Thymus_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Thymus_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Thymus_mRNA_rep2_p1_2.fastq GingerasLab_8w_Thymus_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Thymus_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Thymus_mRNA_rep2_2.fastq
+
+
+#GSE90184 testis
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Testis_mRNA_rep1_p1 SRR5047953
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Testis_mRNA_rep1_p2 SRR5047954
+cat GingerasLab_8w_Testis_mRNA_rep1_p1_1.fastq GingerasLab_8w_Testis_mRNA_rep1_p2_1.fastq
+   >GingerasLab_8w_Testis_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Testis_mRNA_rep1_p1_2.fastq GingerasLab_8w_Testis_mRNA_rep1_p2_2.fastq
+   >GingerasLab_8w_Testis_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Testis_mRNA_rep2_p1 SRR5047955
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Testis_mRNA_rep2_p2 SRR5047956
+cat GingerasLab_8w_Testis_mRNA_rep2_p1_1.fastq GingerasLab_8w_Testis_mRNA_rep2_p2_1.fastq
+   >GingerasLab_8w_Testis_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Testis_mRNA_rep2_p1_2.fastq GingerasLab_8w_Testis_mRNA_rep2_p2_2.fastq
+   >GingerasLab_8w_Testis_mRNA_rep2_2.fastq
+
+
+#GSE90181 lung
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Lung_mRNA_rep1_p1 SRR5047937
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Lung_mRNA_rep1_p2 SRR5047938
+cat GingerasLab_8w_Lung_mRNA_rep1_p1_1.fastq GingerasLab_8w_Lung_mRNA_rep1_p2_1.fastq
+   >GingerasLab_8w_Lung_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Lung_mRNA_rep1_p1_2.fastq GingerasLab_8w_Lung_mRNA_rep1_p2_2.fastq
+   >GingerasLab_8w_Lung_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Lung_mRNA_rep2_p1 SRR5047939
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Lung_mRNA_rep2_p2 SRR5047940
+cat GingerasLab_8w_Lung_mRNA_rep2_p1_1.fastq GingerasLab_8w_Lung_mRNA_rep2_p2_1.fastq
+   >GingerasLab_8w_Lung_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Lung_mRNA_rep2_p1_2.fastq GingerasLab_8w_Lung_mRNA_rep2_p2_2.fastq
+   >GingerasLab_8w_Lung_mRNA_rep2_2.fastq
+
+
+
+#GSE90182 spleen
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Spleen_mRNA_rep1_p1 SRR5047941
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Spleen_mRNA_rep1_p2 SRR5047942
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Spleen_mRNA_rep1_p3 SRR5047943
+cat GingerasLab_8w_Spleen_mRNA_rep1_p1_1.fastq GingerasLab_8w_Spleen_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Spleen_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Spleen_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Spleen_mRNA_rep1_p1_2.fastq GingerasLab_8w_Spleen_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Spleen_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Spleen_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Spleen_mRNA_rep2_p1 SRR5047944
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Spleen_mRNA_rep2_p2 SRR5047945
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Spleen_mRNA_rep2_p3 SRR5047946
+cat GingerasLab_8w_Spleen_mRNA_rep2_p1_1.fastq GingerasLab_8w_Spleen_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Spleen_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Spleen_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Spleen_mRNA_rep2_p1_2.fastq GingerasLab_8w_Spleen_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Spleen_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Spleen_mRNA_rep2_2.fastq
+
+
+#GSE90187 gonadal fat pad
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_p1 SRR5047970
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_p2 SRR5047971
+cat GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_p1_1.fastq GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_p2_1.fastq
+   >GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_p1_2.fastq GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_p2_2.fastq
+   >GingerasLab_8w_Gonadal_FatPad_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_p1 SRR5047972
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_p2 SRR5047973
+cat GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_p1_1.fastq GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_p2_1.fastq
+   >GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_p1_2.fastq GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_p2_2.fastq
+   >GingerasLab_8w_Gonadal_FatPad_mRNA_rep2_2.fastq
+
+
+#GSE90185 adrenal gland
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Adrenal_gland_mRNA_rep1_p1 SRR5047957
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Adrenal_gland_mRNA_rep1_p2 SRR5047958
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Adrenal_gland_mRNA_rep1_p3 SRR5047959
+cat GingerasLab_8w_Adrenal_gland_mRNA_rep1_p1_1.fastq GingerasLab_8w_Adrenal_gland_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Adrenal_gland_mRNA_rep1_p3_1.fastq >GingerasLab_8w_Adrenal_gland_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Adrenal_gland_mRNA_rep1_p1_2.fastq GingerasLab_8w_Adrenal_gland_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Adrenal_gland_mRNA_rep1_p3_2.fastq >GingerasLab_8w_Adrenal_gland_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Adrenal_gland_mRNA_rep2_p1 SRR5047960
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Adrenal_gland_mRNA_rep2_p2 SRR5047961
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Adrenal_gland_mRNA_rep2_p3 SRR5047962
+cat GingerasLab_8w_Adrenal_gland_mRNA_rep2_p1_1.fastq GingerasLab_8w_Adrenal_gland_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Adrenal_gland_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Adrenal_gland_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Adrenal_gland_mRNA_rep2_p1_2.fastq GingerasLab_8w_Adrenal_gland_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Adrenal_gland_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Adrenal_gland_mRNA_rep2_2.fastq
+
+#GSE90186 duodenum
+SRR5047963/4/5/6
+SRR5047967/8/9
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Duodenum_mRNA_rep1_p1 SRR5047963
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Duodenum_mRNA_rep1_p2 SRR5047964
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Duodenum_mRNA_rep1_p3 SRR5047965
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Duodenum_mRNA_rep1_p4 SRR5047966
+cat GingerasLab_8w_Duodenum_mRNA_rep1_p1_1.fastq GingerasLab_8w_Duodenum_mRNA_rep1_p2_1.fastq
+    GingerasLab_8w_Duodenum_mRNA_rep1_p3_1.fastq GingerasLab_8w_Duodenum_mRNA_rep1_p4_1.fastq
+    >GingerasLab_8w_Duodenum_mRNA_rep1_1.fastq
+cat GingerasLab_8w_Duodenum_mRNA_rep1_p1_2.fastq GingerasLab_8w_Duodenum_mRNA_rep1_p2_2.fastq
+    GingerasLab_8w_Duodenum_mRNA_rep1_p3_2.fastq GingerasLab_8w_Duodenum_mRNA_rep1_p4_2.fastq
+    >GingerasLab_8w_Duodenum_mRNA_rep1_2.fastq
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Duodenum_mRNA_rep2_p1 SRR5047967
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Duodenum_mRNA_rep2_p2 SRR5047968
+fastq-dump.2.9.6 --split-3 -A GingerasLab_8w_Duodenum_mRNA_rep2_p3 SRR5047969
+cat GingerasLab_8w_Duodenum_mRNA_rep2_p1_1.fastq GingerasLab_8w_Duodenum_mRNA_rep2_p2_1.fastq
+    GingerasLab_8w_Duodenum_mRNA_rep2_p3_1.fastq >GingerasLab_8w_Duodenum_mRNA_rep2_1.fastq
+cat GingerasLab_8w_Duodenum_mRNA_rep2_p1_2.fastq GingerasLab_8w_Duodenum_mRNA_rep2_p2_2.fastq
+    GingerasLab_8w_Duodenum_mRNA_rep2_p3_2.fastq >GingerasLab_8w_Duodenum_mRNA_rep2_2.fastq
+
+
+
+
+
+
+2.mouse 8w RNAseq from Ren lab
+411 GSM723767       RenLab-RNA-Seq-bone-marrow RenLab_8w_Bone_marrow_mRNA_rep1/2 SRR207090/1
+412 GSM723768       RenLab-RNA-Seq-cerebellum  RenLab_8w_Cerebellum_mRNA_rep1/2 SRR207092/3
+413 GSM723769       RenLab-RNA-Seq-cortex      RenLab_8w_Cortex_mRNA_rep1/2 SRR207094/5
+414 GSM723770       RenLab-RNA-Seq-heart       RenLab_8w_Heart_mRNA_rep1/2 SRR207096/7
+415 GSM723771       RenLab-RNA-Seq-kidney      RenLab_8w_Kidney_mRNA_rep1/2 SRR207098/9
+416 GSM723772       RenLab-RNA-Seq-liver       RenLab_8w_Liver_mRNA_rep1/2 SRR207100/1
+417 GSM723773       RenLab-RNA-Seq-lung        RenLab_8w_Lung_mRNA_rep1/2 SRR207102/3
+418 GSM723774       RenLab-RNA-Seq-spleen      RenLab_8w_Spleen_mRNA_rep1/2 SRR207104/5
+419 GSM723775       RenLab-RNA-Seq-MEF         RenLab_8w_MEF_mRNA_rep1/2 SRR207106/7
+420 GSM723776       RenLab-RNA-Seq-mESC        RenLab_8w_mESC_mRNA_rep1/2 SRR207108/9
+421 GSM850910       RenLab-RNA-Seq-intestine   RenLab_8w_Intestine_mRNA_rep1/2 SRR499923/SRR392613
+422 GSM850911       RenLab-RNA-Seq-olfactory   RenLab_8w_Olfactory_mRNA_rep1/2 SRR392614/5
+423 GSM850912       RenLab-RNA-Seq-placenta    RenLab_8w_Placenta_mRNA_rep1/2 SRR392616/7
+424 GSM850913       RenLab-RNA-Seq-testes      RenLab_8w_Testes_mRNA_rep1/2 SRR392618/9
+425 GSM850914       RenLab-RNA-Seq-thymus      RenLab_8w_Thymus_mRNA_rep1/2 SRR392620/1
+426 GSM850906       RenLab-RNA-Seq-E14.5-brain RenLab_E14_Brain_mRNA_rep1/2 SRR392604/5
+
+fastq-dump.2.10.9 --split-3 -A RenLab_8w_Bone_marrow_mRNA_rep1 SRR207090
+450 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Bone_marrow_mRNA_rep2 SRR207091
+451 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Cerebellum_mRNA_rep1 SRR207092
+452 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Cerebellum_mRNA_rep2 SRR207093
+453 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Cortex_mRNA_rep1 SRR207094
+454 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Cortex_mRNA_rep2 SRR207095
+455 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Heart_mRNA_rep1 SRR207096
+456 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Heart_mRNA_rep2 SRR207097
+457 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Kidney_mRNA_rep1 SRR207098
+458 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Kidney_mRNA_rep2 SRR207099
+459 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Liver_mRNA_rep1 SRR207100
+460 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Liver_mRNA_rep2 SRR207101
+461 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Lung_mRNA_rep1 SRR207102
+462 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Lung_mRNA_rep2 SRR207103
+463 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Spleen_mRNA_rep1 SRR207104
+464 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Spleen_mRNA_rep2 SRR207105
+465 fastq-dump.2.10.9 --split-3 -A RenLab_8w_MEF_mRNA_rep1 SRR207106
+466 fastq-dump.2.10.9 --split-3 -A RenLab_8w_MEF_mRNA_rep2 SRR207107
+467 fastq-dump.2.10.9 --split-3 -A RenLab_8w_mESC_mRNA_rep1 SRR207108
+468 fastq-dump.2.10.9 --split-3 -A RenLab_8w_mESC_mRNA_rep2 SRR207109
+469 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Intestine_mRNA_rep1 SRR499923
+470 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Intestine_mRNA_rep2 SRR392613
+471 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Olfactory_mRNA_rep1 SRR392614
+472 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Olfactory_mRNA_rep2 SRR392615
+473 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Placenta_mRNA_rep1 SRR392616
+474 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Placenta_mRNA_rep2 SRR392617
+475 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Testes_mRNA_rep1 SRR392618
+476 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Testes_mRNA_rep2 SRR392619
+477 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Thymus_mRNA_rep1 SRR392620
+478 fastq-dump.2.10.9 --split-3 -A RenLab_8w_Thymus_mRNA_rep2 SRR392621
+479 fastq-dump.2.10.9 --split-3 -A RenLab_E14_Brain_mRNA_rep1 SRR392604
+480 fastq-dump.2.10.9 --split-3 -A RenLab_E14_Brain_mRNA_rep2 SRR392605
+
+
+
+
+
+
+
+
+
+3. total RNA-seq, prenatal, forebrain , single-end RNA-seq
+#GSE88173 Total RNA-seq on 10ng of embryonic 10.5 day mouse forebrain
+SRR4421600/01
+SRR4421602/03
+fastq-dump.2.9.6 --split-3 -A WoldLab_E10.5_Forebrain_totalRNA_rep1_p1 SRR4421600
+fastq-dump.2.9.6 --split-3 -A WoldLab_E10.5_Forebrain_totalRNA_rep1_p2 SRR4421601
+cat WoldLab_E10.5_Forebrain_totalRNA_rep1_p1.fastq WoldLab_E10.5_Forebrain_totalRNA_rep1_p2.fastq
+    >WoldLab_E10.5_Forebrain_totalRNA_rep1.fastq
+fastq-dump.2.9.6 --split-3 -A WoldLab_E10.5_Forebrain_totalRNA_rep2_p1 SRR4421602
+fastq-dump.2.9.6 --split-3 -A WoldLab_E10.5_Forebrain_totalRNA_rep2_p2 SRR4421603
+cat WoldLab_E10.5_Forebrain_totalRNA_rep2_p1.fastq WoldLab_E10.5_Forebrain_totalRNA_rep2_p2.fastq
+    >WoldLab_E10.5_Forebrain_totalRNA_rep2.fastq
+
+
+
+#GSE78335 Total RNA-seq on 10ng of embryonic 11.5 day mouse forebrain
+SRR3192338/39
+SRR3192340
+fastq-dump.2.9.6 --split-3 -A WoldLab_E11.5_Forebrain_totalRNA_rep1_p1 SRR3192338
+fastq-dump.2.9.6 --split-3 -A WoldLab_E11.5_Forebrain_totalRNA_rep1_p2 SRR3192339
+cat WoldLab_E11.5_Forebrain_totalRNA_rep1_p1.fastq WoldLab_E11.5_Forebrain_totalRNA_rep1_p2.fastq
+    >WoldLab_E11.5_Forebrain_totalRNA_rep1.fastq
+fastq-dump.2.9.6 --split-3 -A WoldLab_E11.5_Forebrain_totalRNA_rep2 SRR3192340
+
+
+#GSE82852 e12.5 forebrain
+SRR3652656/SRR5471092
+SRR3652657/SRR5471093
+fastq-dump.2.9.6 --split-3 -A WoldLab_E12.5_Forebrain_totalRNA_rep1_p1 SRR3652656
+fastq-dump.2.9.6 --split-3 -A WoldLab_E12.5_Forebrain_totalRNA_rep1_p2 SRR5471092
+cat WoldLab_E12.5_Forebrain_totalRNA_rep1_p1.fastq WoldLab_E12.5_Forebrain_totalRNA_rep1_p2.fastq
+    >WoldLab_E12.5_Forebrain_totalRNA_rep1.fastq
+fastq-dump.2.9.6 --split-3 -A WoldLab_E12.5_Forebrain_totalRNA_rep2_p1 SRR3652657
+fastq-dump.2.9.6 --split-3 -A WoldLab_E12.5_Forebrain_totalRNA_rep2_p2 SRR5471093
+cat WoldLab_E12.5_Forebrain_totalRNA_rep2_p1.fastq WoldLab_E12.5_Forebrain_totalRNA_rep2_p2.fastq
+    >WoldLab_E12.5_Forebrain_totalRNA_rep2.fastq
+
+
+#GSE78493 RNA-Seq on embryonic 13.5 day mouse forebrain
+SRR3192345
+SRR3192346
+fastq-dump.2.9.6 --split-3 -A WoldLab_E13.5_Forebrain_totalRNA_rep1 SRR3192345
+fastq-dump.2.9.6 --split-3 -A WoldLab_E13.5_Forebrain_totalRNA_rep2 SRR3192346
+
+
+#GSE78340 RNA-seq on embryonic 14.5 day mouse forebrain
+SRR3191859/SRR3191860
+SRR3191861/SRR3191862
+fastq-dump.2.9.6 --split-3 -A WoldLab_E14.5_Forebrain_totalRNA_rep1_p1 SRR3191859
+fastq-dump.2.9.6 --split-3 -A WoldLab_E14.5_Forebrain_totalRNA_rep1_p2 SRR3191860
+cat WoldLab_E14.5_Forebrain_totalRNA_rep1_p1.fastq WoldLab_E14.5_Forebrain_totalRNA_rep1_p2.fastq
+    >WoldLab_E14.5_Forebrain_totalRNA_rep1.fastq
+fastq-dump.2.9.6 --split-3 -A WoldLab_E14.5_Forebrain_totalRNA_rep2_p1 SRR3191861
+fastq-dump.2.9.6 --split-3 -A WoldLab_E14.5_Forebrain_totalRNA_rep2_p2 SRR3191862
+cat WoldLab_E14.5_Forebrain_totalRNA_rep2_p1.fastq WoldLab_E14.5_Forebrain_totalRNA_rep2_p2.fastq
+    >WoldLab_E14.5_Forebrain_totalRNA_rep2.fastq
+
+
+#GSE78448 RNA-Seq on embryonic 15.5 day mouse forebrain
+SRR3192208
+SRR3192209
+fastq-dump.2.9.6 --split-3 -A WoldLab_E15.5_Forebrain_totalRNA_rep1 SRR3192208
+fastq-dump.2.9.6 --split-3 -A WoldLab_E15.5_Forebrain_totalRNA_rep2 SRR3192209
+
+
+#GSE78323 RNA-Seq on embryonic 16.5 day mouse forebrain
+SRR3191811
+SRR3191812
+fastq-dump.2.9.6 --split-3 -A WoldLab_E16.5_Forebrain_totalRNA_rep1 SRR3191811
+fastq-dump.2.9.6 --split-3 -A WoldLab_E16.5_Forebrain_totalRNA_rep2 SRR3191812
+
+
+#GSE78374 Total RNA-Seq on postnatal 0 day mouse forebrain
+SRR3191959/SRR4241536
+SRR3191961/SRR3191960
+fastq-dump.2.9.6 --split-3 -A WoldLab_P0_Forebrain_totalRNA_rep1_p1 SRR3191959
+fastq-dump.2.9.6 --split-3 -A WoldLab_P0_Forebrain_totalRNA_rep1_p2 SRR4241536
+cat WoldLab_P0_Forebrain_totalRNA_rep1_p1.fastq WoldLab_P0_Forebrain_totalRNA_rep1_p2.fastq
+    >WoldLab_P0_Forebrain_totalRNA_rep1.fastq
+fastq-dump.2.9.6 --split-3 -A WoldLab_P0_Forebrain_totalRNA_rep2_p1 SRR3191961
+fastq-dump.2.9.6 --split-3 -A WoldLab_P0_Forebrain_totalRNA_rep2_p2 SRR3191960
+cat WoldLab_P0_Forebrain_totalRNA_rep2_p1.fastq WoldLab_P0_Forebrain_totalRNA_rep2_p2.fastq
+    >WoldLab_P0_Forebrain_totalRNA_rep2.fastq
+
+
+

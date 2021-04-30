@@ -1,0 +1,617 @@
+1. Load data
+
+library(Seurat)
+packageVersion("Seurat") ## ‘4.0.0’
+
+## Step 1: Setup the Seurat objects
+ctrl1.data <- read.table("Analysis/Deborah_Ctrl_P80_Cortex_rep1_DGE.txt.gz", sep = "\t", header=T, row.names=1)
+ctrl2.data <- read.table("Analysis/Deborah_Ctrl_P80_Cortex_rep2_DGE.txt.gz", sep = "\t", header=T, row.names=1)
+ctrl3.data <- read.table("Analysis/Deborah_Ctrl_P80_Cortex_rep3_DGE.txt.gz", sep = "\t", header=T, row.names=1)
+ctrl4.data <- read.table("Analysis/Deborah_Ctrl_P80_Cortex_rep4_DGE.txt.gz", sep = "\t", header=T, row.names=1)
+
+# Set up seperate object
+# Keep all genes expressed in >= 3 cells. Keep all cells with at least 200 detected genes
+ctrl1 <- CreateSeuratObject(counts = ctrl1.data, project = "Ctrl1",min.cells = 3, min.features = 200)
+ctrl2 <- CreateSeuratObject(counts = ctrl2.data, project = "Ctrl2",min.cells = 3, min.features = 200)
+ctrl3 <- CreateSeuratObject(counts = ctrl3.data, project = "Ctrl3",min.cells = 3, min.features = 200)
+ctrl4 <- CreateSeuratObject(counts = ctrl4.data, project = "Ctrl4",min.cells = 3, min.features = 200)
+
+ctrl1@meta.data$group <- "Control"
+ctrl2@meta.data$group <- "Control"
+ctrl3@meta.data$group <- "Control"
+ctrl4@meta.data$group <- "Control"
+
+
+# merge objects
+cortex <- merge(ctrl1, y = c(ctrl2,ctrl3,ctrl4), project="Cortex", add.cell.ids=c("Ctrl1","Ctrl2","Ctrl3","Ctrl4"))
+cortex@meta.data[1:5,]
+cortex@meta.data
+saveRDS(cortex,"Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_Raw_03112021.rds")
+
+
+
+
+2. QC
+
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install(c("magrittr","dplyr","tidyr","Matrix","reshape2","gplots"))
+
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+packageVersion("Seurat") ## [1] ‘2.3.4’
+
+cortex <- readRDS("Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_Raw_03112021.rds")
+
+# The [[ operator can add columns to object metadata. This is a great place to stash QC stats
+cortex[["percent.mt"]] <- PercentageFeatureSet(cortex, pattern = "^mt-")
+
+# Show QC metrics for the first 5 cells
+head(cortex@meta.data, 5)
+
+# In the example below, we visualize QC metrics, and use these to filter cells.
+# We filter cells that have unique feature counts over 5000 or less than 200
+# We filter cells that have >5% mitochondrial counts
+
+# Visualize QC metrics as a violin plot
+png("Jerry_Deborah_Ctrl_P80_Cortex_QC_nFeature_nCount_mt.png", width = 1200, height = 1200)
+VlnPlot(cortex, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+dev.off() 
+
+# FeatureScatter is typically used to visualize feature-feature relationships, but can be used
+# for anything calculated by the object, i.e. columns in object metadata, PC scores etc.
+# Since there is a rare subset of cells with an outlier level of high mitochondrial percentage 
+# and also low Feture content, we filter these as well
+png("Jerry_Deborah_Ctrl_P80_Cortex_QC_nCount_mt.png", width = 1200, height = 1200)
+FeatureScatter(cortex, feature1 = "nCount_RNA", feature2 = "percent.mt") ## 10
+dev.off()
+png("Jerry_Deborah_Ctrl_P80_Cortex_QC_nCount_nFeature.png", width = 1200, height = 1200)
+FeatureScatter(cortex, feature1 = "nCount_RNA", feature2 = "nFeature_RNA") ## 7000 features
+dev.off() 
+
+# We filter out cells that have unique gene counts over 7,000 or less than 800 
+# We filter cells that have >=10% mitochondrial counts
+cortex <- subset(cortex, subset = nFeature_RNA > 800 & nFeature_RNA < 7000 & percent.mt < 10)
+cortex # An object of class Seurat  27377 features across 13748 samples within 1 assay 
+       # Active assay: RNA (27377 features, 0 variable features)
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_QC_nFeature_nCount_mt_AfterFilter.png", width = 1200, height = 1200)
+VlnPlot(cortex, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+dev.off()
+
+saveRDS(cortex,"Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_AfterFilter_03112021.rds")
+
+
+
+
+3.Normalization
+
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+packageVersion("Seurat") ## [1] ‘2.3.4’
+
+cortex <- readRDS("Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_AfterFilter_03112021.rds")
+
+#####
+##### Normalizing the data
+#####
+# After removing unwanted cells from the dataset, the next step is to normalize the data. 
+# By default, we employ a global-scaling normalization method “LogNormalize” that normalizes 
+# the feature expression measurements for each cell by the total expression, multiplies this 
+# by a scale factor (10,000 by default), and log-transforms the result. Normalized values are stored in pbmc[["RNA"]]@data.
+
+cortex <- NormalizeData(cortex, normalization.method = "LogNormalize", scale.factor = 10000)
+
+
+######
+###### Identification of highly variable features (feature selection)
+######
+# We next calculate a subset of features that exhibit high cell-to-cell variation in the dataset 
+# (i.e, they are highly expressed in some cells, and lowly expressed in others). 
+# Our procedure in Seurat is described in detail here, and improves on previous versions by directly 
+# modeling the mean-variance relationship inherent in single-cell data, and is implemented in the 
+# FindVariableFeatures() function. By default, we return 2,000 features per dataset. 
+# These will be used in downstream analysis, like PCA.
+
+cortex <- FindVariableFeatures(cortex, selection.method = "vst", nfeatures = 2000)
+
+# Identify the 10 most highly variable genes
+top10 <- head(VariableFeatures(cortex), 10)
+
+# plot variable features with and without labels
+png("Jerry_Deborah_Ctrl_P80_Cortex_Norm_variable_features.png", width = 1200, height = 1200)
+VariableFeaturePlot(cortex)
+LabelPoints(plot = plot1, points = top10, repel = TRUE)
+dev.off()
+
+
+
+######
+###### Scaling the data
+###### 
+# Next, we apply a linear transformation (‘scaling’) that is a standard pre-processing step prior 
+# to dimensional reduction techniques like PCA. The ScaleData() function:
+#     Shifts the expression of each gene, so that the mean expression across cells is 0
+#     Scales the expression of each gene, so that the variance across cells is 1
+# This step gives equal weight in downstream analyses, so that highly-expressed genes do not dominate
+# The results of this are stored in cortex[["RNA"]]@scale.data
+
+all.genes <- rownames(cortex)
+cortex <- ScaleData(cortex, features = all.genes)
+
+
+
+######
+###### Perform linear dimensional reduction
+######
+# Next we perform PCA on the scaled data. By default, only the previously determined variable features are 
+# used as input, but can be defined using features argument if you wish to choose a different subset.
+
+cortex <- RunPCA(cortex, features = VariableFeatures(object = cortex))
+
+## Seurat provides several useful ways of visualizing both cells and features that define the PCA, 
+# including VizDimReduction(), DimPlot(), and DimHeatmap()
+
+# Examine and visualize PCA results a few different ways
+print(cortex[["pca"]], dims = 1:5, nfeatures = 5)
+VizDimLoadings(cortex, dims = 1:2, reduction = "pca")
+DimPlot(cortex, reduction = "pca")
+
+# In particular DimHeatmap() allows for easy exploration of the primary sources of heterogeneity in a dataset, 
+# and can be useful when trying to decide which PCs to include for further downstream analyses. Both cells and 
+# features are ordered according to their PCA scores. Setting cells to a number plots the ‘extreme’ cells on 
+# both ends of the spectrum, which dramatically speeds plotting for large datasets. Though clearly a supervised 
+# analysis, we find this to be a valuable tool for exploring correlated feature sets.
+DimHeatmap(cortex, dims = 1, cells = 500, balanced = TRUE)
+png("Jerry_Deborah_Ctrl_P80_Cortex_PCA_DimHeatmap.png", width = 1200, height = 1200)
+DimHeatmap(cortex, dims = 1:15, cells = 500, balanced = TRUE)
+dev.off()
+
+
+######
+###### Determine the ‘dimensionality’ of the dataset
+###### 
+# To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat 
+# clusters cells based on their PCA scores, with each PC essentially representing a ‘metafeature’ 
+# that combines information across a correlated feature set. The top principal components therefore 
+# represent a robust compression of the dataset. However, how many components should we choose to include? 10? 20? 100?
+
+# In Macosko et al, we implemented a resampling test inspired by the JackStraw procedure. We randomly 
+# permute a subset of the data (1% by default) and rerun PCA, constructing a ‘null distribution’ of 
+# feature scores, and repeat this procedure. We identify ‘significant’ PCs as those who have a strong 
+# enrichment of low p-value features.
+# NOTE: This process can take a long time for big datasets, comment out for expediency. More
+# approximate techniques such as those implemented in ElbowPlot() can be used to reduce
+# computation time
+cortex <- JackStraw(cortex, num.replicate = 100, dims=30) ## Max dimension is 30
+cortex <- ScoreJackStraw(cortex, dims = 1:30) 
+
+# The JackStrawPlot() function provides a visualization tool for comparing the distribution of p-values 
+# for each PC with a uniform distribution (dashed line). ‘Significant’ PCs will show a strong enrichment 
+# of features with low p-values (solid curve above the dashed line). In this case it appears that there 
+# is a sharp drop-off in significance after the first 10-12 PCs.
+png("Jerry_Deborah_Ctrl_P80_Cortex_PCA_JackStrawPlot.png", width = 1200, height = 1200)
+JackStrawPlot(cortex, dims = 1:30) ## Not clear
+dev.off()
+
+# An alternative heuristic method generates an ‘Elbow plot’: a ranking of principle components based on 
+# the percentage of variance explained by each one (ElbowPlot() function). In this example, we can observe 
+# an ‘elbow’ around PC9-10, suggesting that the majority of true signal is captured in the first 10 PCs.
+png("Jerry_Deborah_Ctrl_P80_Cortex_PCA_ElbowPlot.png", width = 1200, height = 1200)
+ElbowPlot(cortex, ndims = 30) ## Choose 21
+dev.off()
+
+# Identifying the true dimensionality of a dataset – can be challenging/uncertain for the user. We therefore 
+# suggest these three approaches to consider. The first is more supervised, exploring PCs to determine relevant 
+# sources of heterogeneity, and could be used in conjunction with GSEA for example. The second implements a 
+# statistical test based on a random null model, but is time-consuming for large datasets, and may not return 
+# a clear PC cutoff. The third is a heuristic that is commonly used, and can be calculated instantly. In this 
+# example, all three approaches yielded similar results, but we might have been justified in choosing anything 
+# between PC 7-12 as a cutoff.
+# 
+# We chose 10 here, but encourage users to consider the following:
+# Dendritic cell and NK aficionados may recognize that genes strongly associated with PCs 12 and 13 define rare 
+# immune subsets (i.e. MZB1 is a marker for plasmacytoid DCs). However, these groups are so rare, they are 
+# difficult to distinguish from background noise for a dataset of this size without prior knowledge.
+# We encourage users to repeat downstream analyses with a different number of PCs (10, 15, or even 50!). 
+# As you will observe, the results often do not differ dramatically.
+# We advise users to err on the higher side when choosing this parameter. For example, performing downstream 
+# analyses with only 5 PCs does significantly and adversely affect results.
+
+saveRDS(cortex,"Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_AfterPCA_03122021.rds")
+
+
+
+4. Cluste Cell
+
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+packageVersion("Seurat") ## [1] ‘2.3.4’
+
+cortex <- readRDS("Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_AfterPCA_03122021.rds")
+
+
+
+###### 
+###### Cluster the cells
+###### 
+# Seurat v3 applies a graph-based clustering approach, building upon initial strategies in (Macosko et al). 
+# Importantly, the distance metric which drives the clustering analysis (based on previously identified PCs) 
+# remains the same. However, our approach to partitioning the cellular distance matrix into clusters has 
+# dramatically improved. Our approach was heavily inspired by recent manuscripts which applied graph-based 
+# clustering approaches to scRNA-seq data [SNN-Cliq, Xu and Su, Bioinformatics, 2015] and CyTOF data 
+# [PhenoGraph, Levine et al., Cell, 2015]. Briefly, these methods embed cells in a graph structure - for example 
+# a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar feature expression patterns, and 
+# then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’.
+#
+# As in PhenoGraph, we first construct a KNN graph based on the euclidean distance in PCA space, and refine the edge 
+# weights between any two cells based on the shared overlap in their local neighborhoods (Jaccard similarity). 
+# This step is performed using the FindNeighbors() function, and takes as input the previously defined 
+# dimensionality of the dataset (first 10 PCs).
+# 
+# To cluster the cells, we next apply modularity optimization techniques such as the Louvain algorithm (default) or 
+# SLM [SLM, Blondel et al., Journal of Statistical Mechanics], to iteratively group cells together, with the goal 
+# of optimizing the standard modularity function. The FindClusters() function implements this procedure, and contains 
+# a resolution parameter that sets the ‘granularity’ of the downstream clustering, with increased values leading to a 
+# greater number of clusters. We find that setting this parameter between 0.4-1.2 typically returns good results for 
+# single-cell datasets of around 3K cells. Optimal resolution often increases for larger datasets. The clusters can 
+# be found using the Idents() function.
+cortex <- FindNeighbors(cortex, dims = 1:25)
+cortex <- FindClusters(cortex, resolution = 0.5)
+
+# Look at cluster IDs of the first 5 cells
+head(Idents(cortex), 5)
+
+
+#####
+##### Run non-linear dimensional reduction (UMAP/tSNE)
+#####
+# Seurat offers several non-linear dimensional reduction techniques, such as tSNE and UMAP, to visualize and explore 
+# these datasets. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar 
+# cells together in low-dimensional space. Cells within the graph-based clusters determined above should co-localize on 
+# these dimension reduction plots. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.
+cortex <- RunUMAP(cortex, dims = 1:25)
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_DimPlot.png")
+DimPlot(cortex, reduction = "umap", label = TRUE)
+dev.off()
+
+saveRDS(cortex,"Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_AftertSNE_03122021.rds")
+
+
+
+
+5. cluster biomarkers
+
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+library("ggplot2")
+packageVersion("Seurat") ## [1] ‘2.3.4’
+
+cortex <- readRDS("Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_AftertSNE_03122021.rds")
+
+##### 
+##### Finding differentially expressed features (cluster biomarkers)
+##### 
+# Seurat can help you find markers that define clusters via differential expression. By default, it identifies 
+# positive and negative markers of a single cluster (specified in ident.1), compared to all other cells. 
+# FindAllMarkers() automates this process for all clusters, but you can also test groups of clusters vs. each other, 
+# or against all cells.
+# 
+# The min.pct argument requires a feature to be detected at a minimum percentage in either of the two groups of cells, 
+# and the thresh.test argument requires a feature to be differentially expressed (on average) by some amount between the 
+# two groups. You can set both of these to 0, but with a dramatic increase in time - since this will test a large number 
+# of features that are unlikely to be highly discriminatory. As another option to speed up these computations, 
+# max.cells.per.ident can be set. This will downsample each identity class to have no more cells than whatever this is set 
+# to. While there is generally going to be a loss in power, the speed increases can be significant and the most highly 
+# differentially expressed features will likely still rise to the top.
+
+# find markers for every cluster compared to all remaining cells, report only the positive ones
+cortex.markers <- FindAllMarkers(cortex, only.pos = TRUE, min.pct = 0.15, logfc.threshold = 0.25)
+cortex.markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_log2FC)
+
+saveRDS(cortex.markers, file = "Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_cluster_markers_03122021.rds")
+
+
+# We include several tools for visualizing marker expression. VlnPlot() (shows expression probability distributions across 
+# clusters), and FeaturePlot() (visualizes feature expression on a tSNE or PCA plot) are our most commonly used visualizations. 
+# We also suggest exploring RidgePlot(), CellScatter(), and DotPlot() as additional methods to view your dataset.
+png("Jerry_Deborah_Ctrl_P80_Cortex_VlnPlot_Hs6st.png", width = 1200, height = 1200)
+VlnPlot(cortex, features = c("Hs6st1", "Hs6st2", "Hs6st3"))
+dev.off() 
+
+# you can plot raw counts as well
+VlnPlot(cortex, features = c("Hs6st1", "Hs6st2", "Hs6st3"), slot = "counts", log = TRUE)
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_Hs6st.png", width = 1200, height = 1200)
+FeaturePlot(cortex, features = c("Hs6st1", "Hs6st2", "Hs6st3"))
+dev.off()
+
+# DoHeatmap() generates an expression heatmap for given cells and features. In this case, we are plotting the top 20 
+# markers (or all markers if less than 20) for each cluster.
+top10 <- cortex.markers %>% group_by(cluster) %>% top_n(n = 10, wt = avg_log2FC)
+png("Jerry_Deborah_Ctrl_P80_Cortex_DoHeatmap_top10.png", width = 1200, height = 1200)
+DoHeatmap(cortex, features = top10$gene) + NoLegend()
+dev.off() 
+
+
+
+## functions
+### 1.1.6. Vlnplot and Heatmap plot function
+plot_vln<-function(t,my.genes3) {
+  d <- as.matrix(t@assays$RNA@data[intersect(my.genes3,rownames(t@assays$RNA@data)),])
+  dd <- melt(d,id=row.names)
+  dd <- dd %>% dplyr::rename(gene=Var1,cell=Var2)
+  dd$tree.ident <- Idents(t)[dd$cell]
+  str(dd$tree.ident)
+  dd$gene <- factor(dd$gene,levels=intersect(my.genes3,rownames(t@assays$RNA@data)))
+  ggplot(dd,aes(tree.ident,value,fill=tree.ident))+geom_violin(scale="width",trim=T,alpha=0.8,adjust=1)+facet_wrap(~gene,scales="free_y",ncol=1,strip.position = "right") + theme(strip.background = element_blank(), strip.placement = "outside",axis.text.y=element_blank(),axis.title.y=element_blank(),strip.text.y = element_text(colour = "red", angle = 360,size=10),legend.position="none",panel.grid=element_blank(), panel.border=element_blank())+theme(axis.text.x = element_text(angle = 45,hjust=1,vjust=1,size=rel(0.9)),legend.position="none") + xlab("")
+}
+
+my.colours= c("#313695", "#4575B4", "#74ADD1", "#ABD9E9", "#E0F3F8", "#FFFFFF","#FEE090", "#FDAE61", "#F46D43", "#D73027", "#A50026")
+plot_heatmap = function(t,my.genes7,my.colours=my.colours,COL=T,ROW=T,DEND="none"){
+  my.genes6 <- intersect(unique(my.genes7),rownames(t@data))
+  Mat <- t@data[unique(my.genes6),]
+  Mat <- as.data.frame(as.matrix(Mat))
+  Mat$gene <- rownames(Mat)
+  Mat <- melt(Mat,id="gene")
+  Mat$cluster <- t@ident[Mat$variable]
+  Mat <- Mat %>% group_by(gene,cluster) %>% dplyr::summarise(meanExp=mean(value)) %>% ungroup
+  Mat <- as.data.frame(Mat)
+  Mat <- dcast(Mat, gene ~ cluster, value.var="meanExp")
+  rownames(Mat) <- Mat$gene
+  Mat <- as.matrix(Mat[,-1])
+  Mat <- t(scale(t(Mat)))
+  Mat <- Mat[unique(my.genes6),levels(t@ident)]
+  Mat <- na.omit(Mat)
+  heatmap.2(Mat,Colv=COL,Rowv=ROW,dendrogram=DEND,scale="none",trace="none",density.info="none",col=my.colours)
+}
+
+
+
+
+##### 
+##### Assigning cell type identity to clusters
+##### 
+# Fortunately in the case of this dataset, we can use canonical markers to easily match the unbiased clustering to 
+# known cell types:
+
+gene.markers <- c("Snap25","Slc17a7","Cux2","Enpp2","Ndst4","Lmo3","Rorb","Tox","Zfpm2","Hs3st4","Ntng1","Tshz2","Angpt1","Cpne7","Rmst","Gad2","Npy","Ndnf","Pvalb","Sst","Vip","Meis2","Ppp1r1b","Nr4a2","Gnb4","Prox1","Ctss","Enpp6","Mbp","Opalin","Mog","Pdgfra","Apoe","Gja1","Fit1","Mgp","Fn1")
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_tSNE_markers.png", width = 1200, height = 1200)
+plot_vln(cortex, gene.markers)
+dev.off()
+
+plot_vln(cortex, c("Hs6st1","Hs6st2","Hs6st3","Slc17a7","Gad1","Slc1a3"))
+
+#png("Jerry_Deborah_Ctrl_P80_Cortex_Vln_23Clusters.png", width = 1200, height = 1200)
+#plot_vln(cortex,c("Nectin3",
+#                   "Rprm","Rorb","Ndst4","Il1rapl2","Cck","Drd1","Hap1","Pvalb","Slc1a3","Gm19410",
+#                   "Sst","Drd2","Cpne7","Cldn11","Slc17a6","Ctgf","Vip","Npy","Myl4","Oprk1",
+#                   "Pdgfra","Cx3cr1","Ankfn1","Glis3","Slc6a20a",
+#                   "Rbfox3","Map2","Gad2"))
+#dev.off()
+
+
+##### anotation of clusters
+# 0  1   2   3   4   5   6   7   8   9   10
+# Exc_L2/3_Enpp2   Exc_L5/6  Exc_L2/3_Ndst  STR  Exc_L4  Exc_L6_1    
+# 6  7  8  9  10
+# Meis2  Ihn_Pv   Astro   Oligo  Ihn_Vip 
+# 11   12   13   14   15   
+# Exc_L5  Ihn_sst  Exc_L6_2  Exc_Cpne7  Exc_Tshz2_1
+# 16   17   18   19   20
+# Claustrum OPC  Exc_Tshz2_2 MG  DG_Prox1
+# 21   22
+# Inh_Ndnf Exc_Ntng1
+
+new.cluster.ids <- c("Exc_L2/3_Enpp2",
+                     "Exc_L5/6","Exc_L2/3_Ndst","STR","Exc_L4","Exc_L6_1",
+                     "Meis2","Ihn_Pv","Astro","Oligo","Ihn_Vip",
+                     "Exc_L5","Ihn_sst","Exc_L6_2","Exc_Cpne7","Exc_Tshz2_1",
+                     "Claustrum","OPC","Exc_Tshz2_2","MG","DG_Prox1",
+                     "Inh_Ndnf","Exc_Ntng1")
+names(new.cluster.ids) <- levels(cortex)
+cortex <- RenameIdents(cortex, new.cluster.ids)
+png("Jerry_Deborah_Ctrl_P80_Cortex_DimPlot_Label.png",width = 800, height = 800)
+DimPlot(cortex, reduction = "umap", label = TRUE, pt.size = 0.5, label.size=6) + NoLegend()
+dev.off()
+
+saveRDS(cortex, file = "Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_Final_03152021.rds")
+
+sessionInfo()
+# R version 4.0.4 (2021-02-15)
+# Platform: x86_64-apple-darwin17.0 (64-bit)
+# Running under: macOS Big Sur 10.16
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# other attached packages:
+# [1] ggplot2_3.3.3      gplots_3.1.1       reshape2_1.4.4     Matrix_1.3-2      
+# [5] tidyr_1.1.3        dplyr_1.0.5        magrittr_2.0.1     SeuratObject_4.0.0
+# [9] Seurat_4.0.0      
+# 
+# loaded via a namespace (and not attached):
+#  [1] nlme_3.1-152         bitops_1.0-6         matrixStats_0.58.0  
+#  [4] RcppAnnoy_0.0.18     RColorBrewer_1.1-2   httr_1.4.2          
+#  [7] sctransform_0.3.2    tools_4.0.4          utf8_1.1.4          
+# [10] R6_2.5.0             irlba_2.3.3          rpart_4.1-15        
+# [13] KernSmooth_2.23-18   uwot_0.1.10          lazyeval_0.2.2      
+# [16] mgcv_1.8-34          colorspace_2.0-0     withr_2.4.1         
+# [19] tidyselect_1.1.0     gridExtra_2.3        compiler_4.0.4      
+# [22] cli_2.3.1            plotly_4.9.3         labeling_0.4.2      
+# [25] caTools_1.18.1       scales_1.1.1         lmtest_0.9-38       
+# [28] spatstat.data_2.0-0  ggridges_0.5.3       pbapply_1.4-3       
+# [31] spatstat_1.64-1      goftest_1.2-2        stringr_1.4.0       
+# [34] digest_0.6.27        spatstat.utils_2.0-0 pkgconfig_2.0.3     
+# [37] htmltools_0.5.1.1    parallelly_1.23.0    fastmap_1.1.0       
+# [40] htmlwidgets_1.5.3    rlang_0.4.10         shiny_1.6.0         
+# [43] farver_2.1.0         generics_0.1.0       zoo_1.8-9           
+# [46] jsonlite_1.7.2       gtools_3.8.2         ica_1.0-2           
+# [49] patchwork_1.1.1      Rcpp_1.0.6           munsell_0.5.0       
+# [52] fansi_0.4.2          abind_1.4-5          reticulate_1.18     
+# [55] lifecycle_1.0.0      stringi_1.5.3        MASS_7.3-53.1       
+# [58] Rtsne_0.15           plyr_1.8.6           grid_4.0.4          
+# [61] parallel_4.0.4       listenv_0.8.0        promises_1.2.0.1    
+# [64] ggrepel_0.9.1        crayon_1.4.1         miniUI_0.1.1.1      
+# [67] deldir_0.2-10        lattice_0.20-41      cowplot_1.1.1       
+# [70] splines_4.0.4        tensor_1.5           pillar_1.5.1        
+# [73] igraph_1.2.6         future.apply_1.7.0   codetools_0.2-18    
+# [76] leiden_0.3.7         glue_1.4.2           data.table_1.14.0   
+# [79] vctrs_0.3.6          png_0.1-7            httpuv_1.5.5        
+# [82] gtable_0.3.0         RANN_2.6.1           purrr_0.3.4         
+# [85] polyclip_1.10-0      assertthat_0.2.1     scattermore_0.7     
+# [88] future_1.21.0        mime_0.10            xtable_1.8-4        
+# [91] later_1.1.0.1        survival_3.2-7       viridisLite_0.3.0   
+# [94] tibble_3.1.0         cluster_2.1.1        globals_0.14.0      
+# [97] fitdistrplus_1.1-3   ellipsis_0.3.1       ROCR_1.0-11         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Plot genes
+
+library(Seurat)
+library(magrittr) ## %>% pipe operator
+library(dplyr)
+library(tidyr)
+library(Matrix)
+library("reshape2")
+library("gplots")
+library("ggplot2")
+packageVersion("Seurat") ## [1] ‘4.0.1’
+
+cortex <- readRDS("Jerry_Deborah_Ctrl_P80_Cortex_SeuratObject_Final_03152021.rds")
+
+## functions
+### 1.1.6. Vlnplot and Heatmap plot function
+plot_vln<-function(t,my.genes3) {
+  d <- as.matrix(t@assays$RNA@data[intersect(my.genes3,rownames(t@assays$RNA@data)),])
+  dd <- melt(d,id=row.names)
+  dd <- dd %>% dplyr::rename(gene=Var1,cell=Var2)
+  dd$tree.ident <- Idents(t)[dd$cell]
+  str(dd$tree.ident)
+  dd$gene <- factor(dd$gene,levels=intersect(my.genes3,rownames(t@assays$RNA@data)))
+  ggplot(dd,aes(tree.ident,value,fill=tree.ident))+geom_violin(scale="width",trim=T,alpha=0.8,adjust=1)+facet_wrap(~gene,scales="free_y",ncol=1,strip.position = "right") + theme(strip.background = element_blank(), strip.placement = "outside",axis.text.y=element_blank(),axis.title.y=element_blank(),strip.text.y = element_text(colour = "red", angle = 360,size=10),legend.position="none",panel.grid=element_blank(), panel.border=element_blank())+theme(axis.text.x = element_text(angle = 45,hjust=1,vjust=1,size=rel(0.9)),legend.position="none") + xlab("")
+}
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_VlnPlot_HS_enzyme.png", width = 800, height = 800)
+plot_vln(cortex, c("Ext1","Ext2","Ndst1","Ndst2","Ndst3","Ndst4","Glce","Hs2st1","Hs6st1","Hs6st2","Hs6st3",
+                   "Hs3st1","Hs3st2","Hs3st3a1","Hs3st3b1","Hs3st4","Hs3st5","Hs3st6","Sulf1","Sulf2"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_VlnPlot_HS_core_protein.png", width = 800, height = 800)
+plot_vln(cortex, c("Gpc1","Gpc2","Gpc3","Gpc4","Gpc5","Gpc6","Col18a1","Agrn","Hspg2",
+                   "Sdc1","Sdc2","Sdc3","Sdc4","Cd44","Nrp1","Tgfbr3","Srgn"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Hs3st4.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Hs3st4"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Gpc5.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Gpc5"))
+dev.off()
+
+
+
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Ext1.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Ext1"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Ndst3.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Ndst3"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Ndst4.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Ndst4"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Hs6st3.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Hs6st3"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Sulf1.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Sulf1"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Sulf2.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Sulf2"))
+dev.off()
+
+
+
+
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Gpc6.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Gpc6"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Sdc4.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Sdc4"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Nrp1.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Nrp1"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Tgfbr3.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Tgfbr3"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Srgn.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Srgn"))
+dev.off()
+
+png("Jerry_Deborah_Ctrl_P80_Cortex_FeaturePlot_HS_Sdc2.png", width = 500, height = 500)
+FeaturePlot(cortex, features = c("Sdc2"))
+dev.off()
+
+
+
+
+table(cortex@meta.data$orig.ident)
+# Ctrl1 Ctrl2 Ctrl3 Ctrl4 
+#  4004  4952  2890  1902
+# Total cells = 4004+4952+2890+1902 = 13748
+
+

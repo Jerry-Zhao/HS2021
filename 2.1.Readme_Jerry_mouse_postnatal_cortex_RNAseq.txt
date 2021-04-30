@@ -1,0 +1,81 @@
+Readme_Jerry:
+# Poplawski SG, Garbett KA, McMahan RL, Kordasiewicz HB et al. An Antisense Oligonucleotide Leads to 
+# Suppressed Transcription of Hdac2 and Long-Term Memory Enhancement. Mol Ther Nucleic Acids 2020 Mar 6;19:1399-1412. PMID: 32160709
+
+GSE124726: SCRAMBLE ASO
+
+GSM3544113	CTX_SCR_3d_1 SRR8404874
+GSM3544114	CTX_SCR_3d_2 SRR8404875
+GSM3544115	CTX_SCR_3d_3 SRR8404876
+
+GSM3544131	CTX_SCR_2w_1 SRR8404892
+GSM3544132	CTX_SCR_2w_2 SRR8404893
+GSM3544133	CTX_SCR_2w_3 SRR8404894
+
+GSM3544149	CTX_SCR_4w_1 SRR8404910
+GSM3544150	CTX_SCR_4w_2 SRR8404911
+GSM3544151	CTX_SCR_4w_3 SRR8404912
+
+GSM3544167	CTX_SCR_8w_1 SRR8404928
+GSM3544168	CTX_SCR_8w_2 SRR8404929
+GSM3544169	CTX_SCR_8w_3 SRR8404930
+
+GSM3544185	CTX_SCR_16w_1 SRR8404946
+GSM3544186	CTX_SCR_16w_2 SRR8404947
+GSM3544187	CTX_SCR_16w_3 SRR8404948
+
+GSM3544203	CTX_SCR_32w_1 SRR8404964
+GSM3544204	CTX_SCR_32w_2 SRR8404965
+GSM3544205	CTX_SCR_32w_3 SRR8404966
+
+GSM3544221	CTX_SCR_40w_1 SRR8404982
+GSM3544222	CTX_SCR_40w_2 SRR8404983
+GSM3544223	CTX_SCR_40w_3 SRR8404984
+
+GSM3544239	CTX_SCR_48w_1 SRR8405000
+GSM3544240	CTX_SCR_48w_2 SRR8405001
+GSM3544241	CTX_SCR_48w_3 SRR8405002
+
+GSM3544257	CTX_SCR_52w_1 SRR8405019
+GSM3544258	CTX_SCR_52w_2 SRR8405020
+GSM3544259	CTX_SCR_52w_3 SRR8405021
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_3d_Cortex_totalRNA_rep1 SRR8404874
+fastq-dump.2.9.6 --split-3 -A GreerLab_3d_Cortex_totalRNA_rep2 SRR8404875
+fastq-dump.2.9.6 --split-3 -A GreerLab_3d_Cortex_totalRNA_rep3 SRR8404876
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_2w_Cortex_totalRNA_rep1 SRR8404892
+fastq-dump.2.9.6 --split-3 -A GreerLab_2w_Cortex_totalRNA_rep2 SRR8404893
+fastq-dump.2.9.6 --split-3 -A GreerLab_2w_Cortex_totalRNA_rep3 SRR8404894
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_4w_Cortex_totalRNA_rep1 SRR8404910 
+fastq-dump.2.9.6 --split-3 -A GreerLab_4w_Cortex_totalRNA_rep2 SRR8404911
+fastq-dump.2.9.6 --split-3 -A GreerLab_4w_Cortex_totalRNA_rep3 SRR8404912
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_8w_Cortex_totalRNA_rep1 SRR8404928
+fastq-dump.2.9.6 --split-3 -A GreerLab_8w_Cortex_totalRNA_rep2 SRR8404929
+fastq-dump.2.9.6 --split-3 -A GreerLab_8w_Cortex_totalRNA_rep3 SRR8404930
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_16w_Cortex_totalRNA_rep1 SRR8404946 
+fastq-dump.2.9.6 --split-3 -A GreerLab_16w_Cortex_totalRNA_rep2 SRR8404947
+fastq-dump.2.9.6 --split-3 -A GreerLab_16w_Cortex_totalRNA_rep3 SRR8404948
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_32w_Cortex_totalRNA_rep1 SRR8404964 
+fastq-dump.2.9.6 --split-3 -A GreerLab_32w_Cortex_totalRNA_rep2 SRR8404965
+fastq-dump.2.9.6 --split-3 -A GreerLab_32w_Cortex_totalRNA_rep3 SRR8404966
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_40w_Cortex_totalRNA_rep1 SRR8404982
+fastq-dump.2.9.6 --split-3 -A GreerLab_40w_Cortex_totalRNA_rep2 SRR8404983
+fastq-dump.2.9.6 --split-3 -A GreerLab_40w_Cortex_totalRNA_rep3 SRR8404984
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_48w_Cortex_totalRNA_rep1 SRR8405000
+fastq-dump.2.9.6 --split-3 -A GreerLab_48w_Cortex_totalRNA_rep2 SRR8405001
+fastq-dump.2.9.6 --split-3 -A GreerLab_48w_Cortex_totalRNA_rep3 SRR8405002
+
+fastq-dump.2.9.6 --split-3 -A GreerLab_52w_Cortex_totalRNA_rep1 SRR8405019
+fastq-dump.2.9.6 --split-3 -A GreerLab_52w_Cortex_totalRNA_rep2 SRR8405020
+fastq-dump.2.9.6 --split-3 -A GreerLab_52w_Cortex_totalRNA_rep3 SRR8405021
+
+
+
+

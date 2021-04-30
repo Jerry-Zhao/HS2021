@@ -1,0 +1,21 @@
+1.Stress_Deborah
+GSE145970 
+A neuronal transcription factor is required in the prefrontal cortex for transcriptional and behavioral adaptation to chronic stress
+ GSM4340462	DropSeq_control_rep1
+ GSM4340463	DropSeq_control_rep2
+ GSM4340464	DropSeq_control_rep3
+ GSM4340465	DropSeq_control_rep4
+
+ mv ZhouLab_cortex_Ctrl_Rep31_1.fastq.gz Deborah_Ctrl_P80_Cortex_rep1_1.fastq.gz
+ mv ZhouLab_cortex_Ctrl_Rep31_2.fastq.gz Deborah_Ctrl_P80_Cortex_rep1_2.fastq.gz
+ mv ZhouLab_cortex_Ctrl_Rep33_1.fastq.gz Deborah_Ctrl_P80_Cortex_rep2_1.fastq.gz
+ mv ZhouLab_cortex_Ctrl_Rep33_2.fastq.gz Deborah_Ctrl_P80_Cortex_rep2_2.fastq.gz
+ mv ZhouLab_cortex_Ctrl_Rep30_1.fastq.gz Deborah_Ctrl_P80_Cortex_rep3_1.fastq.gz
+ mv ZhouLab_cortex_Ctrl_Rep30_2.fastq.gz Deborah_Ctrl_P80_Cortex_rep3_2.fastq.gz
+ mv ZhouLab_cortex_Ctrl_Rep34_1.fastq.gz Deborah_Ctrl_P80_Cortex_rep4_1.fastq.gz
+ mv ZhouLab_cortex_Ctrl_Rep34_2.fastq.gz Deborah_Ctrl_P80_Cortex_rep4_2.fastq.gz
+
+
+
+
+
